@@ -1,0 +1,61 @@
+openapi: 3.0.3
+info:
+  title: API de Análise Imobiliária - Projeto NAM UNIVALI
+  description: >
+    Serviços HTTP/REST para análise de dados imobiliários em apoio ao 
+    migrante e políticas públicas habitacionais em Santa Catarina.
+  version: 1.0.0
+
+servers:
+  - url: http://localhost:3000
+    description: Servidor Local de Desenvolvimento
+
+paths:
+  /api/vendas/imoveis/acumulado:
+    get:
+      summary: Valor acumulado em pagamentos por imóvel (Gráfico a)
+      description: Retorna para cada imóvel o identificador/código e o valor acumulado em pagamentos na série histórica.
+      responses:
+        '200':
+          description: Lista de imóveis com seus respectivos totais acumulados.
+          content:
+            application/json:
+              example:
+                - codigo_imovel: 4356
+                  total_pago: 15200.00
+                - codigo_imovel: 4357
+                  total_pago: 7450.00
+
+  /api/vendas/periodo:
+    get:
+      summary: Total de vendas por mês/ano (Gráfico b)
+      description: Retorna a série histórica com o valor total de vendas agrupado por período (mês/ano).
+      responses:
+        '200':
+          description: Lista de períodos cronológicos com seus respectivos totais de vendas.
+          content:
+            application/json:
+              example:
+                - periodo: "01/2023"
+                  total_vendas: 17300.00
+                - periodo: "03/2023"
+                  total_vendas: 28100.00
+
+  /api/vendas/tipos/percentual:
+    get:
+      summary: Percentual do total de vendas por tipo de imóvel (Gráfico c)
+      description: Retorna para cada modalidade de imóvel o percentual correspondente sobre o valor total de vendas.
+      responses:
+        '200':
+          description: Lista de categorias de imóveis com suas fatias percentuais calculadas.
+          content:
+            application/json:
+              example:
+                - tipo_imovel: "Apartamento"
+                  percentual: "14.88%"
+                - tipo_imovel: "Casa"
+                  percentual: "20.42%"
+                - tipo_imovel: "Sala Comercial"
+                  percentual: "13.06%"
+                - tipo_imovel: "Galpão"
+                  percentual: "51.64%"
